@@ -1,0 +1,19 @@
+{
+  "codes": ["akiec", "bcc", "bkl", "df", "mel", "nv", "vasc"],
+  "label_index": {"akiec": 0, "bcc": 1, "bkl": 2, "df": 3, "mel": 4, "nv": 5, "vasc": 6},
+  "noms": {
+    "akiec": "Kératose actinique / carcinome intra-épithélial",
+    "bcc": "Carcinome basocellulaire",
+    "bkl": "Kératose bénigne",
+    "df": "Dermatofibrome",
+    "mel": "Mélanome",
+    "nv": "Naevus mélanocytaire",
+    "vasc": "Lésion vasculaire"
+  },
+  "risque": {
+    "akiec": "précancéreux", "bcc": "malin", "bkl": "bénin", "df": "bénin",
+    "mel": "malin", "nv": "bénin", "vasc": "bénin"
+  },
+  "seed": 42,
+  "split": "70/15/15 par lesion_id, stratifié par dx"
+}
