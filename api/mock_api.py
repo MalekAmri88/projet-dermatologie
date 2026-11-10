@@ -2,10 +2,12 @@ import base64
 import io
 import json
 
-from fastapi import FastAPI, UploadFile
+from fastapi import FastAPI, HTTPException, UploadFile
 from PIL import Image, ImageOps
 
 app = FastAPI()
+
+FORMATS_ACCEPTES = ["image/jpeg", "image/png", "image/tiff"]
 
 
 def fausse_heatmap():
@@ -23,6 +25,8 @@ def health():
 
 @app.post("/predict")
 async def predict(file: UploadFile):
+    if file.content_type not in FORMATS_ACCEPTES:
+        raise HTTPException(status_code=415, detail="Format refusé")
     with open("exemple_reponse.json", encoding="utf-8") as f:
         donnees = json.load(f)
     donnees["heatmap_base64"] = fausse_heatmap()

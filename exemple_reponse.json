@@ -1,16 +1,16 @@
 {
-  "lesion": "Naevus mélanocytaire",
-  "classe": "nv",
+  "lesion": "Mélanome",
+  "classe": "mel",
   "probabilites": {
-    "nv": 0.82,
-    "mel": 0.09,
-    "bkl": 0.04,
+    "mel": 0.81,
+    "nv": 0.10,
+    "bkl": 0.05,
     "bcc": 0.02,
     "akiec": 0.01,
     "vasc": 0.01,
-    "df": 0.01
+    "df": 0.00
   },
   "risque": "malin",
-  "alerte_incertitude": true,
+  "alerte_incertitude": false,
   "heatmap_base64": null
 }

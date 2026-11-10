@@ -2,8 +2,10 @@ import base64
 
 import requests
 import streamlit as st
+from PIL import Image
 
 API_URL = "http://localhost:8000"
+TAILLE_MAX = 15 * 1024 * 1024  # 15 Mo
 
 COULEURS_RISQUE = {
     "bénin": "#2e9e4f",
@@ -48,7 +50,7 @@ def afficher_resultat(resultat, fichier):
 
     with colonne_images:
         st.subheader("Image analysée")
-        st.image(fichier)
+        st.image(Image.open(fichier))
         st.subheader("Zones importantes pour la décision")
         if resultat.get("heatmap_base64"):
             st.image(base64.b64decode(resultat["heatmap_base64"]))
@@ -83,17 +85,30 @@ def afficher_resultat(resultat, fichier):
             st.progress(float(p), text=f"{nom} : {p:.0%}")
 
 
-fichier = st.file_uploader("Choisir une image", type=["jpg", "jpeg", "png"])
+fichier = st.file_uploader(
+    "Choisir une image", type=["jpg", "jpeg", "png", "tif", "tiff"]
+)
 
 if fichier and st.button("Analyser"):
-    try:
-        with st.spinner("Analyse en cours..."):
-            st.session_state["resultat"] = appeler_api(fichier)
-            st.session_state["fichier"] = fichier
-    except requests.exceptions.ConnectionError:
-        st.error("Impossible de joindre l'API. Est-elle lancée ?")
-    except requests.exceptions.RequestException as e:
-        st.error(f"Erreur de l'API : {e}")
+    if fichier.size > TAILLE_MAX:
+        st.error("Image trop grande : la taille maximale est de 15 Mo.")
+    else:
+        try:
+            with st.spinner("Analyse en cours..."):
+                st.session_state["resultat"] = appeler_api(fichier)
+                st.session_state["fichier"] = fichier
+        except requests.exceptions.ConnectionError:
+            st.error("Impossible de joindre l'API. Est-elle lancée ?")
+        except requests.exceptions.HTTPError as e:
+            code = e.response.status_code
+            if code == 415:
+                st.error("Format refusé. Utilisez une image JPG, PNG ou TIFF.")
+            elif code == 413:
+                st.error("Image trop grande : la taille maximale est de 15 Mo.")
+            else:
+                st.error(f"Erreur de l'API (code {code}).")
+        except requests.exceptions.RequestException as e:
+            st.error(f"Erreur : {e}")
 
 if "resultat" in st.session_state:
     afficher_resultat(st.session_state["resultat"], st.session_state["fichier"])
