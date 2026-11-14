@@ -1,0 +1,2 @@
+essai,description,accuracy,balanced_acc,f1_macro,recall_mel
+baseline_convnext_tiny_andy279,"modele existant andy279/convnext-tiny-ham10000-lesion-disjoint non modifie, evalue sur val",0.8838,0.9338,0.8844,0.8588

@@ -1,0 +1,56 @@
+{
+  "model_repo": "andy279/convnext-tiny-ham10000-lesion-disjoint",
+  "architecture": "convnext_tiny",
+  "classes_ordre_modele": [
+    "akiec",
+    "bcc",
+    "bkl",
+    "df",
+    "nv",
+    "mel",
+    "vasc"
+  ],
+  "classes_ordre_officiel": [
+    "akiec",
+    "bcc",
+    "bkl",
+    "df",
+    "mel",
+    "nv",
+    "vasc"
+  ],
+  "perm_modele_vers_officiel": [
+    0,
+    1,
+    2,
+    3,
+    5,
+    4,
+    6
+  ],
+  "input_size": [
+    3,
+    224,
+    224
+  ],
+  "mean": [
+    0.485,
+    0.456,
+    0.406
+  ],
+  "std": [
+    0.229,
+    0.224,
+    0.225
+  ],
+  "interpolation": "bicubic",
+  "crop_pct": 0.875,
+  "metriques_validation": {
+    "essai": "baseline_convnext_tiny_andy279",
+    "description": "modele existant andy279/convnext-tiny-ham10000-lesion-disjoint non modifie, evalue sur val",
+    "accuracy": 0.8838,
+    "balanced_acc": 0.9338,
+    "f1_macro": 0.8844,
+    "recall_mel": 0.8588
+  }
+}
