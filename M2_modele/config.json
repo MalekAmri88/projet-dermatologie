@@ -52,5 +52,14 @@
     "balanced_acc": 0.9338,
     "f1_macro": 0.8844,
     "recall_mel": 0.8588
-  }
+  },
+  "metriques_validation_propre": {
+    "essai": "baseline_convnext_tiny_andy279_propre",
+    "description": "meme modele, evalue sur les 471 images de val dont la lesion n'est pas dans le train du modele",
+    "accuracy": 0.7983,
+    "balanced_acc": 0.8661,
+    "f1_macro": 0.7856,
+    "recall_mel": 0.6923
+  },
+  "avertissement": "Les metriques_validation sont gonflees : environ 69 % des images de validation ont leur lesion dans le train du modele. Utiliser metriques_validation_propre."
 }
